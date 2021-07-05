@@ -3,12 +3,18 @@ import logging
 from pathlib import Path
 
 import pytest
-from app.utils.config import settings
+from dynaconf import Dynaconf
 from pyrogram import Client
 from tgintegration import BotController
 
 
 CONFIG_DIR = Path(__file__).parent.parent / "config"
+
+settings = Dynaconf(
+    envvar_prefix=False,
+    environments=True,
+    settings_files=["settings.toml", ".secrets.toml", "settings.local.toml"],
+)
 
 logger = logging.getLogger("tgintegration")
 logger.setLevel(logging.DEBUG)
