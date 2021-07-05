@@ -1,0 +1,32 @@
+[default]
+debug = false
+admins = []
+tg_api = "https://api.telegram.org"
+skip_updates = true
+check_ip = true
+recreate_db = false
+echo_db = false
+db_url = "postgresql+asyncpg://user:pass@localhost:5432/name"
+wh_url = ""
+wh_on = false
+session_name = ""
+api_id = ""
+api_hash = ""
+proxy = ""
+
+    [default.proxy_auth]
+    login = ""
+    password = ""
+
+    [default.server]
+    host = "localhost"
+    port = 8080
+
+
+[development]
+
+
+[testing]
+
+
+[production]
