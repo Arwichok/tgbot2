@@ -31,7 +31,7 @@ async def start_cmd(msg: atp.Message):
             )
             if msg.text.startswith(REF_START):
                 with suppress(ChatNotFound):
-                    chat = await msg.bot.get_chat(msg.text[len(REF_START):])
+                    chat = await msg.bot.get_chat(msg.text[len(REF_START) :])
                     if await session.get(User, chat.id):
                         user.refer = chat.id
             session.add(user)
@@ -51,4 +51,6 @@ async def has_stopped(cmu: atp.ChatMemberUpdated):
 
 def register(dp: Dispatcher):
     dp.register_message_handler(start_cmd, _filter, CommandStart())
-    dp.register_my_chat_member_handler(has_stopped, _filter, chat_type=atp.ChatType.PRIVATE)
+    dp.register_my_chat_member_handler(
+        has_stopped, _filter, chat_type=atp.ChatType.PRIVATE
+    )

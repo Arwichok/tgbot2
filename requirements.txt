@@ -1,4 +1,4 @@
-aiogram~=2.14.1
+aiogram~=2.14.3
 sqlalchemy~=1.4.19
 environs~=9.3.2
 aiohttp~=3.7.4.post0
@@ -6,3 +6,5 @@ pytest~=6.2.4
 Pyrogram~=1.2.9
 tgintegration~=1.1.0
 alembic~=1.6.5
+aioredis
+aiosqlite

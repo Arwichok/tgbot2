@@ -8,7 +8,7 @@ env.read_env()
 
 @dataclass
 class Server:
-    host: str = env("SERVER_HOST", 'localhost')
+    host: str = env("SERVER_HOST", "localhost")
     port: int = env("SERVER_PORT", 8080)
 
 

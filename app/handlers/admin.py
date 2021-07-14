@@ -25,16 +25,18 @@ async def info_cmd(msg: types.Message):
         "MODE": "Webhook" if settings.wh_on else "Polling",
         "BOT_VERSION": __version__,
     }
-    text = "<code>" \
-           "Bot version: {BOT_VERSION}\n"\
-           "IP: {IP}\n" \
-           "Python: {PY_VERSION}\n" \
-           "OS: {SYSTEM}\n" \
-           "Join to groups: {CAN_JOIN_GROUPS}\n" \
-           "Read all group messages: {CAN_READ_ALL_GROUP_MESSAGES}\n" \
-           "Inline mode: {INLINE_QUERIES}\n" \
-           "Mode: {MODE}" \
-           "</code>"
+    text = (
+        "<code>"
+        "Bot version: {BOT_VERSION}\n"
+        "IP: {IP}\n"
+        "Python: {PY_VERSION}\n"
+        "OS: {SYSTEM}\n"
+        "Join to groups: {CAN_JOIN_GROUPS}\n"
+        "Read all group messages: {CAN_READ_ALL_GROUP_MESSAGES}\n"
+        "Inline mode: {INLINE_QUERIES}\n"
+        "Mode: {MODE}"
+        "</code>"
+    )
     await msg.answer(text.format(**data, **asdict(settings)))
 
 

@@ -7,6 +7,8 @@ async def handler(request: web.Request):
 
 
 def register(app: web.Application):
-    app.add_routes([
-        web.get("/", handler),
-    ])
+    app.add_routes(
+        [
+            web.get("/", handler),
+        ]
+    )

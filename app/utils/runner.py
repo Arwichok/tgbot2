@@ -6,13 +6,17 @@ from logging import DEBUG, INFO
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.bot.api import TelegramAPIServer, TELEGRAM_PRODUCTION
-from aiogram.dispatcher.webhook import (BOT_DISPATCHER_KEY,
-                                        WebhookRequestHandler)
+from aiogram.dispatcher.webhook import BOT_DISPATCHER_KEY, WebhookRequestHandler
 from aiohttp import BasicAuth, web
 
 from app.utils.fsm import init_storage
 from app.utils.config import settings
-from app.utils.events import on_shutdown, on_shutdown_webhook, on_startup, on_startup_webhook
+from app.utils.events import (
+    on_shutdown,
+    on_shutdown_webhook,
+    on_startup,
+    on_startup_webhook,
+)
 from app.web.routes import register
 
 
@@ -22,7 +26,9 @@ def init_dispatcher():
         parse_mode=types.ParseMode.HTML,
         proxy=settings.proxy_url,
         proxy_auth=BasicAuth(settings.proxy_login, settings.proxy_password),
-        server=TelegramAPIServer.from_base(settings.tg_api) if settings.tg_api else TELEGRAM_PRODUCTION,
+        server=TelegramAPIServer.from_base(settings.tg_api)
+        if settings.tg_api
+        else TELEGRAM_PRODUCTION,
     )
     return Dispatcher(bot, storage=init_storage())
 
