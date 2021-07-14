@@ -1,4 +1,5 @@
 import platform
+from dataclasses import asdict
 
 from aiogram import Dispatcher, types
 
@@ -9,7 +10,7 @@ from app.utils.constants import DB
 
 
 async def _filter(msg: types.Message):
-    return msg.chat.id in settings.admins
+    return msg.chat.id == settings.admin_id
 
 
 async def info_cmd(msg: types.Message):
@@ -27,7 +28,6 @@ async def info_cmd(msg: types.Message):
     text = "<code>" \
            "Bot version: {BOT_VERSION}\n"\
            "IP: {IP}\n" \
-           "Namespace: {NAMESPACE_FOR_DYNACONF}\n" \
            "Python: {PY_VERSION}\n" \
            "OS: {SYSTEM}\n" \
            "Join to groups: {CAN_JOIN_GROUPS}\n" \
@@ -35,13 +35,13 @@ async def info_cmd(msg: types.Message):
            "Inline mode: {INLINE_QUERIES}\n" \
            "Mode: {MODE}" \
            "</code>"
-    await msg.answer(text.format(**data, **settings))
+    await msg.answer(text.format(**data, **asdict(settings)))
 
 
 async def users_cmd(msg: types.Message):
     async with msg.bot[DB]() as session:
         count = await get_users_count(session)
-        await msg.answer("Users: {}".format(count))
+        await msg.answer("Users count: {}".format(count))
 
 
 def register(dp: Dispatcher):

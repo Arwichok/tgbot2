@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Optional
 
 from sqlalchemy import Column, String, Integer, Boolean, DateTime
 from sqlalchemy.sql import expression
@@ -15,9 +16,9 @@ class DateTimeBase:
 
 @dataclass
 class User(Base, DateTimeBase):
+    __tablename__ = "users"
     id: int = Column(Integer, primary_key=True)
     name: str = Column(String)
-    refer: int = Column(Integer)
-    is_super: bool = Column(Boolean, server_default=expression.false())
-    is_started: bool = Column(Boolean, server_default=expression.false())
-    is_stopped: bool = Column(Boolean, server_default=expression.false())
+    fullname: str = Column(String)
+    is_active: bool = Column(Boolean, server_default=expression.false())
+    refer: Optional[int] = Column(Integer)

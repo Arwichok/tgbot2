@@ -1,14 +1,9 @@
 # TGBOT - telegram bot template for Aiogram
 
 
-### config/ (based on dynaconf)
+copy example.env to as .env or use environments
 
-```toml
-# config/.secrets.toml
-[default]
-bot_token = "123:ABC"
-```
-`config/settings.toml` - settings stored in git
-`config/settings.local.toml` - your local settings
-
-also you can use env `BOT_TOKEN = "123:ABC"`
+Set vars:
+BOT_TOKEN - Your bot token
+DB_URL - By default used sqlite
+ADMIN_ID - Your id for use admin functions

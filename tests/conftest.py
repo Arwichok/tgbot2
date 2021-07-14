@@ -3,18 +3,16 @@ import logging
 from pathlib import Path
 
 import pytest
-from dynaconf import Dynaconf
+import environs
 from pyrogram import Client
 from tgintegration import BotController
 
 
-CONFIG_DIR = Path(__file__).parent.parent / "config"
+CONFIG_DIR = Path(__file__).parent.parent
 
-settings = Dynaconf(
-    envvar_prefix=False,
-    environments=True,
-    settings_files=["settings.toml", ".secrets.toml", "settings.local.toml"],
-)
+env = environs.Env()
+env.read_env()
+
 
 logger = logging.getLogger("tgintegration")
 logger.setLevel(logging.DEBUG)
@@ -23,7 +21,7 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 
 @pytest.fixture(scope="session", autouse=True)
-def event_loop(_):
+def event_loop(request):
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()
@@ -32,9 +30,9 @@ def event_loop(_):
 @pytest.fixture(scope="session")
 async def client():
     client = Client(
-        "UserBot",
-        api_id=settings.api_id,
-        api_hash=settings.api_hash,
+        env("SESSION_NAME", "Client"),
+        api_id=env.int("API_ID"),
+        api_hash=env("API_HASH"),
         workdir=str(CONFIG_DIR),
     )
     await client.start()
@@ -46,7 +44,7 @@ async def client():
 async def controller(client):
     c = BotController(
         client=client,
-        peer=settings.bot_token.split(":")[0],
+        peer=env("BOT_TOKEN").split(":")[0],
         max_wait=10.0,
         wait_consecutive=0.8,
     )
