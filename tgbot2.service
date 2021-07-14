@@ -1,0 +1,14 @@
+[Unit]
+Description=TelegramBotTemplate2
+After=network.target
+
+[Service]
+User=tgbot
+Group=tgbot
+Type=simple
+Restart=always
+WorkingDirectory=/opt/tgbot
+ExecStart=/opt/tgbot/venv/bin/python -m app
+
+[Install]
+WantedBy=multi-user.target
